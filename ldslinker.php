@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: LDS Linker
-Plugin URI: http://www.joeyday.com/to/lds-linker
-Description: Automagically changes any Latter-day Saint scripture reference into a hyperlink pointing to the passage at the Internet Edition of the LDS Scriptures.
-Author: Joey Day
+Plugin Name: Latter-day Linker
+Plugin URI: https://wordx.press
+Description: Automagically changes any scripture reference into a hyperlink pointing to the passage at churchofjesuschrist.org.
+Author: WordXpress
 Version: 3.0
-Author URI: http://www.joeyday.com
-Copyright: © 2017 RMWebLab.
+Author URI: https://wordx.press
+Copyright: © WordXpress
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: lds-linker
