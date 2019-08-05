@@ -80,6 +80,11 @@ You’re welcome to use my [contact form](http://www.joeyday.com/contact). Cheer
 
 == Changelog ==
 
+= What's new in 3.0 =
+
+* The Plugin now properly work with the new Block Editor (Gutenberg).
+* Fix the issue. plugin work with PHP 5.6 - 7.3
+
 = What's new in 2.5 =
 
 * Added option to have passage links open in a new window.
