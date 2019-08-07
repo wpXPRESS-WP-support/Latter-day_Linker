@@ -60,7 +60,7 @@ class LDSLinker {
 	 */
 	public function plugin_action_links( $links ) {
 		$plugin_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=ldslinker-settings' ) . '">' . __( 'Settings', 'lds-linker' ) . '</a>',
+			'<a href="' . admin_url( 'options-general.php?page=latter-day-linker-settings' ) . '">' . __( 'Settings', 'lds-linker' ) . '</a>',
 		);
 		return array_merge( $plugin_links, $links );
 	}
@@ -70,7 +70,7 @@ class LDSLinker {
 	 * Add admin settings menu
 	 */
 	public function admin_settings_menu() {
-    add_options_page('LDS Linker Options', 'LDS Linker', 'manage_options', 'ldslinker-settings', array(	$this,	'ldslinker_options_subpanel'));
+    add_options_page('LDS Linker Options', 'Latter-day Linker', 'manage_options', 'latter-day-linker-settings', array(	$this,	'ldslinker_options_subpanel'));
 	}
 
 
@@ -92,7 +92,7 @@ class LDSLinker {
       } ?>
       <div class="wrap">
       	<div id="icon-options-general" class="icon32"><br /></div>
-          <h2>LDS Linker Settings</h2>
+          <h2>Latter-day Linker Settings</h2>
           <form method="post">
               <?php # Get values from options table in database.
               $include_bible_refs = get_option('ldslinker_include_bible_refs');
