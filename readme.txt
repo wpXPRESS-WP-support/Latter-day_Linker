@@ -76,14 +76,16 @@ Have you got another plugin activated that modifies the content of your posts or
 
 = My question’s not here. How can I contact the developer? =
 
-You’re welcome to use my [contact form](http://www.joeyday.com/contact). Cheers!
+Use the (support forums)[https://wordpress.org/support/plugin/lds-linker/#new-post] on WP.org for plugin support. For general WordPress support or other questions, use the WordXpress [contact form](https://wordx.press/contact/). Cheers!
 
 == Changelog ==
 
 = What's new in 3.0 =
 
-* The Plugin now properly work with the new Block Editor (Gutenberg).
-* Fix the issue. plugin work with PHP 5.6 - 7.3
+* Fix: works properly with the new Block Editor (Gutenberg).
+* Fix: works with PHP 5.6 - 7.3.
+* Fix: links to www.churchofjesuschrist.org/study/scriptures/ instead of scriptures.lds.org.
+* Enhancement: new name!
 
 = What's new in 2.5 =
 
