@@ -99,14 +99,6 @@ class LDSLinker {
               $open_links_in_new_window = get_option('ldslinker_open_links_in_new_window'); ?>
               <table class="form-table">
                   <tr valign="top">
-                      <th scope="row">
-                      	<label>URL construction method</label>
-                      </th>
-                      <td> Direct lookup
-                          <br /><span class="description">Bring up passages on churchofjesuschrist.org. For example : <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/3.7#7" target="_new2">1 Nephi 3:7</a>.</span>
-                      </td>
-                  </tr>
-                  <tr valign="top">
                       <th scope="row">Link behavior</th>
                       <td>
                           <label for="ldslinker_open_links_in_new_window">
@@ -140,7 +132,6 @@ class LDSLinker {
 	 */
 	static function lds_plugin_install(){
     # Add some default options if they don't already exist.
-    // update_option('ldslinker_url_style', 'direct'); #'Style for LDS scripture URLs. Possible values are: direct (Direct lookup), or search (Passage search)'
         update_option('ldslinker_include_bible_refs', TRUE); # 'Linkify references to the Holy Bible.'
         update_option('ldslinker_open_links_in_new_window', FALSE); #'Open scripture reference links in a new window.'
         update_option('ldslinker_language', 'en'); #'Language to use when linking to LDS scripture passages. Possible values are: de (Deutsch), en (English), es (Español), fr (Français), or it (Italiano).'
