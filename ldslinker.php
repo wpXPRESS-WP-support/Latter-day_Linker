@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: LDS Linker
-Plugin URI: http://www.joeyday.com/to/lds-linker
-Description: Automagically changes any Latter-day Saint scripture reference into a hyperlink pointing to the passage at the Internet Edition of the LDS Scriptures.
-Author: Joey Day
+Plugin Name: Latter-day Linker
+Plugin URI: https://wordx.press
+Description: Automagically changes any scripture reference into a hyperlink pointing to the passage at churchofjesuschrist.org.
+Author: WordXpress
 Version: 3.0
-Author URI: http://www.joeyday.com
-Copyright: © 2017 RMWebLab.
+Author URI: https://wordx.press
+Copyright: © WordXpress
 License:     GPL2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: lds-linker
@@ -60,7 +60,7 @@ class LDSLinker {
 	 */
 	public function plugin_action_links( $links ) {
 		$plugin_links = array(
-			'<a href="' . admin_url( 'options-general.php?page=ldslinker-settings' ) . '">' . __( 'Settings', 'lds-linker' ) . '</a>',
+			'<a href="' . admin_url( 'options-general.php?page=latter-day-linker-settings' ) . '">' . __( 'Settings', 'lds-linker' ) . '</a>',
 		);
 		return array_merge( $plugin_links, $links );
 	}
@@ -70,13 +70,12 @@ class LDSLinker {
 	 * Add admin settings menu
 	 */
 	public function admin_settings_menu() {
-    add_options_page('LDS Linker Options', 'LDS Linker', 'manage_options', 'ldslinker-settings', array(	$this,	'ldslinker_options_subpanel'));
+    add_options_page('LDS Linker Options', 'Latter-day Linker', 'manage_options', 'latter-day-linker-settings', array(	$this,	'ldslinker_options_subpanel'));
 	}
 
 
   public function ldslinker_options_subpanel() {
       if ( isset($_POST['lds_linker_info_update']) ) {
-          update_option('ldslinker_url_style', sanitize_text_field($_POST['ldslinker_url_style']));
           if(isset($_POST['ldslinker_open_links_in_new_window'])){
   		        update_option('ldslinker_open_links_in_new_window', sanitize_text_field($_POST['ldslinker_open_links_in_new_window']));
           }else{
@@ -93,23 +92,18 @@ class LDSLinker {
       } ?>
       <div class="wrap">
       	<div id="icon-options-general" class="icon32"><br /></div>
-          <h2>LDS Linker Settings</h2>
+          <h2>Latter-day Linker Settings</h2>
           <form method="post">
               <?php # Get values from options table in database.
-              $url_style = get_option('ldslinker_url_style');
               $include_bible_refs = get_option('ldslinker_include_bible_refs');
               $open_links_in_new_window = get_option('ldslinker_open_links_in_new_window'); ?>
               <table class="form-table">
                   <tr valign="top">
                       <th scope="row">
-                      	<label for="ldslinker_url_style">URL construction method</label>
+                      	<label>URL construction method</label>
                       </th>
-                      <td>
-                          <select name="ldslinker_url_style" id="ldslinker_url_style">
-                              <option value="direct"<?php if ($url_style == 'direct') echo ' selected="selected"'; ?>>Direct lookup</option>
-                              <option value="search"<?php if ($url_style == 'search') echo ' selected="selected"'; ?>>Passage search</option>
-                          </select>
-                          <br /><span class="description">There are two ways to bring up passages on scriptures.lds.org: a passage search or a direct passage lookup. To understand the difference, compare these examples: (1) Passage search: <a href="http://scriptures.lds.org/en/search?search=1+Ne.+3%3A7" target="_new1">1 Nephi 3:7</a> and (2) Direct lookup: <a href="http://scriptures.lds.org/en/1_ne/3/7#7" target="_new2">1 Nephi 3:7</a>.</span>
+                      <td> Direct lookup
+                          <br /><span class="description">Bring up passages on churchofjesuschrist.org. For example : <a href="https://www.churchofjesuschrist.org/study/scriptures/bofm/1-ne/3.7#7" target="_new2">1 Nephi 3:7</a>.</span>
                       </td>
                   </tr>
                   <tr valign="top">
@@ -146,10 +140,10 @@ class LDSLinker {
 	 */
 	static function lds_plugin_install(){
     # Add some default options if they don't already exist.
-    update_option('ldslinker_url_style', 'direct', 'Style for LDS scripture URLs. Possible values are: direct (Direct lookup), or search (Passage search)');
-    update_option('ldslinker_include_bible_refs', TRUE, 'Linkify references to the Holy Bible.');
-    update_option('ldslinker_open_links_in_new_window', FALSE, 'Open scripture reference links in a new window.');
-    update_option('ldslinker_language', 'en', 'Language to use when linking to LDS scripture passages. Possible values are: de (Deutsch), en (English), es (Español), fr (Français), or it (Italiano).');
+    // update_option('ldslinker_url_style', 'direct'); #'Style for LDS scripture URLs. Possible values are: direct (Direct lookup), or search (Passage search)'
+        update_option('ldslinker_include_bible_refs', TRUE); # 'Linkify references to the Holy Bible.'
+        update_option('ldslinker_open_links_in_new_window', FALSE); #'Open scripture reference links in a new window.'
+        update_option('ldslinker_language', 'en'); #'Language to use when linking to LDS scripture passages. Possible values are: de (Deutsch), en (English), es (Español), fr (Français), or it (Italiano).'
 	}
 
   /**
@@ -174,8 +168,8 @@ class LDSLinker {
           'Joseph\sSmith(?:\s|-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)(?:Matthew|History)|' .
           'JS(?:\s|-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)?[MH]|' .
           'Abraham|Abr\.?|Moses|Official\sDeclaration|O\.?\s?D\.?|Articles?\sof\sFaith|A\.?\sof\sF\.?';
-
-  # Bible references come last so that Joseph Smith—Matthew will match before Matthew
+          
+      # Bible references come last so that Joseph Smith—Matthew will match before Matthew
       if ( get_option('ldslinker_include_bible_refs') ) {
           $books .= '|Genesis|Gen\.?|Exodus|Ex\.?|Leviticus|Lev\.?|'.
               'Numbers|Num\.?|Deuteronomy|Deut\.?|'.
@@ -195,6 +189,7 @@ class LDSLinker {
               'Thes\.?|Timothy|Tim\.?|Titus|Philemon|Philem\.?|'.
               'Hebrews|Heb\.?|James|Peter|Pet\.?|Jude|'.
               'Revelation|Rev\.?';
+
       }
 
       # The chapter: 1 or more digits followed possibly by a colon and a space.
@@ -219,150 +214,125 @@ class LDSLinker {
    */
   function addLinkCallback($match) {
 
-      $die = $match[1];
-      $vol = $match[2];
-      $bok = $match[3];
-      $chp = $match[4];
-      $ver = $match[5];
+    $die = $match[1];
+    $vol = $match[2];
+    $bok = $match[3];
+    $chp = $match[4];
+    $ver = $match[5];
 
-      # Save a cleaned up copy of the complete passage before we mangle the variables.
+    # Save a cleaned up copy of the complete passage before we mangle the variables.
 
-  # Replace hyphens and variously encoded en- and em-dashes in book name with character entity em-dashes
-  # Replace variously encoded ampersands in book name with character entity ampersands
-      $cleanBok = preg_replace( array ( '/Smith(?:\s|-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)/',
-                                        '/S(?:-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)?(H|M)/',
-                                        '/&(?:amp;|\#0*38;|\#x0*26;)?(?![nm#])/' ),
-                          array ( 'Smith&mdash;', 'S-\1', '&amp;' ),
-                          $bok);
+    # Replace hyphens and variously encoded en- and em-dashes in book name with character entity em-dashes
+    # Replace variously encoded ampersands in book name with character entity ampersands
+    $cleanBok = preg_replace( array ( '/Smith(?:\s|-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)/',
+                                      '/S(?:-|–|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];)?(H|M)/',
+                                      '/&(?:amp;|\#0*38;|\#x0*26;)?(?![nm#])/' ),
+                        array ( 'Smith&mdash;', 'S-\1', '&amp;' ),
+                        $bok);
+    # Replace hyphens and variously encoded en-dashes in verse range with character entity en-dashes
+    if ($ver)
+      $cleanVer = preg_replace('/(?:-|–|&\#0*150;|&\#0*8211;|&\#x0*2013;)/', '&ndash;', $ver);
+    $psg = $this->xmlentities(($vol ? "$vol" : "").$cleanBok.($chp ? " $chp" : "").($ver ? "$cleanVer" : ""));
 
-  # Replace hyphens and variously encoded en-dashes in verse range with character entity en-dashes
-      if ($ver)
-        $cleanVer = preg_replace('/(?:-|–|&\#0*150;|&\#0*8211;|&\#x0*2013;)/', '&ndash;', $ver);
-      $psg = $this->xmlentities(($vol ? "$vol" : "").$cleanBok.($chp ? " $chp" : "").($ver ? "$cleanVer" : ""));
 
-      # If the user put an exclamation mark on the front of the reference, pass back the passage with no link.
-      if ($die) return $psg;
+    # If the user put an exclamation mark on the front of the reference, pass back the passage with no link.
+    if ($die) return $psg;
 
-      # Prepare the first part of the link. This is the same whether we're using
-      # passage search or direct lookup.
-      $link = 'http://scriptures.lds.org/'. get_option('ldslinker_language') . '/';
+    # Prepare the first part of the link. This is the same whether we're using
+    # passage search or direct lookup.
+    $link = 'https://www.churchofjesuschrist.org/study/scriptures/';
 
-      # This allows linking directly to an Article of Faith without including the
-      # chapter number.
-      if ((preg_match('/Articles?\sof\sFaith/', $bok) || preg_match('/A\.?\sof\sF\.?/', $bok)) && !$ver) {
-          $ver = $chp;
-          $chp = '1:';
+    # This allows linking directly to an Article of Faith without including the
+    # chapter number.
+    if ((preg_match('/Articles?\sof\sFaith/', $bok) || preg_match('/A\.?\sof\sF\.?/', $bok)) && !$ver) {
+        $ver = $chp;
+        $chp = '1:';
+    }
+
+
+    # If there's a volume number, remove any whitespace and tack an underscore to the end of it.
+    if ($vol) {
+      $vol = preg_replace('/\s/', '', $vol);
+      $vol .= '-';
+    }
+
+    # Trim hyphens, en-dashes, em-dashes, whitespace, dots, and ampersands from book
+    # and translate all to lowercase.
+    $bok = strtolower(preg_replace('/(?:\s|\.|-|–|—|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
+
+    # If the book isn't abbreviated, we need to abbreviate it before we tack
+    # it onto the link string. We start by creating an array of book names
+    # and their abbreviations.
+    $abbr = array(
+      'ot' => array(
+                  'genesis' => 'gen',             'exodus' => 'ex',                'leviticus' => 'lev',
+                  'numbers' => 'num',             'deuteronomy' => 'deut',         'joshua' => 'josh',
+                  'judges' => 'judg',             'samuel' => 'sam',               'kings' => 'kgs',
+                  'chronicles' => 'chr',          'nehemiah' => 'neh',             'esther' => 'esth',
+                  'psalms' => 'ps',               'proverbs' => 'prov',            'ecclesiastes' => 'eccl',
+                  'songofsolomon' => 'song',      'isaiah' => 'isa',               'jeremiah' => 'jer',
+                  'lamentations' => 'lam',        'ezekiel' => 'ezek',             'daniel' => 'dan',
+                  'obadiah' => 'obad',            'habakkuk' => 'hab',             'zephaniah' => 'zeph',
+                  'haggai' => 'hag',              'zechariah' => 'zech',           'malachi' => 'mal',
+                  'ezra' => 'ezra',               'job' => 'job',                  'hosea' => 'hosea',
+                  'joel' => 'joel',               'amos' => 'amos',                'jonah' => 'jonah',
+                  'micah' => 'micah',             'nahum' => 'nahum'
+              ),
+      'nt' => array(
+                  'matthew' => 'matt',            'romans' => 'rom',               'corinthians' => 'cor',
+                  'galatians' => 'gal',           'ephesians' => 'eph',            'philippians' => 'philip',
+                  'colossians' => 'col',          'thessalonians' => 'thes',       'timothy' => 'tim',
+                  'philemon' => 'philem',         'hebrews' => 'heb',              'peter' => 'pet',
+                  'revelation' => 'rev',          'mark' => 'mark',                'luke' => 'luke',
+                  'john' => 'jn',                 'acts' => 'acts',                'jude' => 'jude',
+                  'jn' => 'john'
+              ),
+      'bofm' => array(
+                  'nephi' => 'ne',                'wordsofmormon' => 'w_of_m',     'wofm' => 'w_of_m',
+                  'helaman' => 'hel',             'mormon' => 'morm',              'moroni' => 'moro',
+                  'jacob' => 'jacob',             'enos' => 'enos',                'jarom' => 'jarom',
+                  'omni' => 'omni',               'mosiah' => 'mosiah',            'alma' => 'alma',
+                  'ether' => 'ether'
+              ),
+      'dc-testament' => array(
+                  'doctrineandcovenants' => 'dc', 'doctrinecovenants' => 'dc',     'officialdeclaration' => 'od'
+              ),
+      'pgp' => array(
+                  'josephsmithmatthew' => 'js_m', 'jsm' => 'js_m',                 'josephsmithhistory' => 'js_h',
+                  'jsh' => 'js_h',                'abraham' => 'abr',              'articlesoffaith' => 'a_of_f',
+                  'articleoffaith' => 'a_of_f',   'aoff' => 'a_of_f'
+              ),
+    );
+
+    # Get books parent abbreviations
+    $parent_abbr = "";
+    foreach($abbr as $key => $value) {
+      foreach ($value as $bok_name => $boks_abbr) {
+        if($boks_abbr == $bok) {
+          $bok = $boks_abbr;
+          $parent_abbr = $key;
+        }
       }
+    }
 
-      # Find out whether the user has selected direct lookup or passage search.
-      # Do the following if they've selected direct lookup.
-      if ( get_option('ldslinker_url_style') == 'direct' ) {
+    # Trim possible colon and whitespace from end of chapter.
+    $chp = preg_replace(array('/:/', '/\s/'), array('', ''), $chp);
 
-          # If there's a volume number, remove any whitespace and tack an underscore to the end of it.
-          if ($vol) {
-            $vol = preg_replace('/\s/', '', $vol);
-            $vol .= '_';
-          }
+    # URL-encode colons, commas, and en-dashes and trim superfluous whitespace from verse(s).
+    $ver = preg_replace(array('/:/', '/,/', '/(?:–|&ndash;|&\#0*150;|&\#0*8211;|&\#x0*2013;)/', '/\s*/'),
+                        array('%3A', '%2C', '-', ''),
+                        $ver);
 
-          # Trim hyphens, en-dashes, em-dashes, whitespace, dots, and ampersands from book
-          # and translate all to lowercase.
-          $bok = strtolower(preg_replace('/(?:\s|\.|-|–|—|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
+    # Figure out which verse is first in the set of verses so we can use it as
+    # an anchor in the URL.
+    preg_match('/\d+/', $ver, $result);
+    $anc = $result[0];
 
-          # If the book isn't abbreviated, we need to abbreviate it before we tack
-          # it onto the link string. We start by creating an array of book names
-          # and their abbreviations.
-          $abbr = array (
-              'genesis' => 'gen',             'exodus' => 'ex',                'leviticus' => 'lev',
-              'numbers' => 'num',             'deuteronomy' => 'deut',         'joshua' => 'josh',
-              'judges' => 'judg',             'samuel' => 'sam',               'kings' => 'kgs',
-              'chronicles' => 'chr',          'nehemiah' => 'neh',             'esther' => 'esth',
-              'psalms' => 'ps',               'proverbs' => 'prov',            'ecclesiastes' => 'eccl',
-              'songofsolomon' => 'song',      'isaiah' => 'isa',               'jeremiah' => 'jer',
-              'lamentations' => 'lam',        'ezekiel' => 'ezek',             'daniel' => 'dan',
-              'obadiah' => 'obad',            'habakkuk' => 'hab',             'zephaniah' => 'zeph',
-              'haggai' => 'hag',              'zechariah' => 'zech',           'malachi' => 'mal',
-              'matthew' => 'matt',            'romans' => 'rom',               'corinthians' => 'cor',
-              'galatians' => 'gal',           'ephesians' => 'eph',            'philippians' => 'philip',
-              'colossians' => 'col',          'thessalonians' => 'thes',       'timothy' => 'tim',
-              'philemon' => 'philem',         'hebrews' => 'heb',              'peter' => 'pet',
-              'revelation' => 'rev',          'nephi' => 'ne',                 'wordsofmormon' => 'w_of_m',
-              'wofm' => 'w_of_m',             'helaman' => 'hel',              'mormon' => 'morm',
-              'moroni' => 'moro',             'doctrineandcovenants' => 'dc',  'doctrinecovenants' => 'dc',
-              'josephsmithmatthew' => 'js_m', 'jsm' => 'js_m',                 'josephsmithhistory' => 'js_h',
-              'jsh' => 'js_h',                'abraham' => 'abr',              'officialdeclaration' => 'od',
-              'articlesoffaith' => 'a_of_f',  'articleoffaith' => 'a_of_f',    'aoff' => 'a_of_f'
-          );
+    # Smoosh all this together to produce the final URL.
+    $link .= $parent_abbr."/".$vol.$bok.($chp ? "/$chp" : "").($ver ? ".$ver" : "").($anc ? "#$anc" : "");
 
-          # If the book matches one of the full length book names from the array,
-          # translate it into the appropriate abbreviation.
-          if ($abbr[$bok]) $bok = $abbr[$bok];
-
-          # John is an odd case here. The Gospel of John is not abbreviated, but
-          # the three epistles of John are abbreviated with 'jn'. In other words, if
-          # there's not a volume number, we need to leave 'john' alone, but if there is
-          # a volume number we need to abbreviate it.
-          if ($vol && $bok == 'john') $bok = 'jn';
-
-          # Trim possible colon and whitespace from end of chapter.
-          $chp = preg_replace(array('/:/', '/\s/'), array('', ''), $chp);
-
-          # URL-encode colons, commas, and en-dashes and trim superfluous whitespace from verse(s).
-          $ver = preg_replace(array('/:/', '/,/', '/(?:–|&ndash;|&\#0*150;|&\#0*8211;|&\#x0*2013;)/', '/\s*/'),
-                              array('%3A', '%2C', '-', ''),
-                              $ver);
-
-          # Figure out which verse is first in the set of verses so we can use it as
-          # an anchor in the URL.
-          preg_match('/\d+/', $ver, $result);
-          $anc = $result[0];
-
-          # Smoosh all this together to produce the final URL.
-          $link .= $vol.$bok.($chp ? "/$chp" : "").($ver ? "/$ver" : "").($anc ? "#$anc" : "");
-
-      }
-
-      # Do the following if the user has selected passage search.
-      else {
-
-          # For some reason the official declarations can't be found using a passage
-          # search, so we have to do a direct lookup. Weird.
-          if (preg_match('/Official\sDeclaration/', $bok) || preg_match('/O\.?\s?D\.?/', $bok)) {
-              $link .= 'od/'.$chp;
-          }
-
-          # For everything else, we URL-encode the passage and tack it
-          # to the end of the link in the form of a search query.
-          else {
-
-            # If there's a volume number, remove any whitespace from it.
-            if ($vol) {
-              $vol = preg_replace('/\s/', '', $vol);
-            }
-
-              # Change possible em-dash, hyphen, or whitespace to +,
-              # trim possible dots, URL-encode possible ampersand from book.
-              # Stick the 's' back on the end of 'Article', if it's not there.
-              $bok = preg_replace(array('/(?:-|—|&[nm]dash;|&\#0*15[01];|&\#0*821[12];|&\#x0*201[34];|\s)/', '/\./', '/&(?:amp;|\#0*38;|&\#x0*26;)?/', '/Article(?!s)/'),
-                                  array('+', '', '%26', 'Articles'),
-                                  $bok);
-
-              # Trim possible whitespace from end of chapter.
-              $chp = preg_replace('/\s$/', '', $chp);
-
-              # URL-encode colons, commas, and en-dashes and trim superfluous whitespace from verse(s).
-              $ver = preg_replace(array('/:/', '/,/', '/(?:–|&ndash;|&\#0*150;|&\#0*8211;|&\#x0*2013;)/', '/\s*/'),
-                                  array('%3A', '%2C', '-', ''),
-                                  $ver);
-
-              # Tack the cleaned up volume, book, chapter and verse(s) to the link
-              # in the form of a search query.
-              $link .= 'search?search='.($vol ? "$vol+" : "").$bok.($chp ? "+$chp" : "").$ver;
-
-          }
-      }
-
-      # Pass back the shiny new hyperlink.
-      return "<a href=\"$link\" title=\"LDS Scriptures Internet Edition: $psg\"" . ( get_option('ldslinker_open_links_in_new_window') ? " target=\"_$vol$bok$chp$ver\"" : "" ) . ">$psg</a>";
+    # Pass back the shiny new hyperlink.
+    return "<a href=\"$link\" title=\"LDS Scriptures Internet Edition: $psg\"" . ( get_option('ldslinker_open_links_in_new_window') ? " target=\"_$vol$bok$chp$ver\"" : "" ) . ">$psg</a>";
   }
 
 
@@ -374,11 +344,10 @@ class LDSLinker {
    */
   function ldslinkify($text) {
 
-      //$callback = create_function('$match', "return LDSLinker::addLinkCallback(".'$match'.");");
-			$match = '';
-			$match = $match[0];
-			$callback = $this->addLinkCallback($match);
-
+      $callback = function($match){
+        return $this->addLinkCallback($match);
+      };
+      
       # We don't want to linkify passages that are already hyperlinked
       # or surrounded in <pre> or <code> tags, so we strip those out by
       # splitting the string each time we encounter one of those.
@@ -424,6 +393,6 @@ class LDSLinker {
 
 }
 
-new LDSLinker();
+$lds_linker = new LDSLinker();
 
 register_activation_hook( __FILE__, array( 'LDSLinker', 'lds_plugin_install' ) );
