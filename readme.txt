@@ -1,7 +1,7 @@
 === Latter-day Linker ===
 Contributors: hiren1612, wordxpress1, thefiddler, joeyday
 Donate link: https://wordx.press
-Tags: scriptures, book of mormon, latter-day, lds, scriptures
+Tags: scriptures, jesus christ, christian, mormon, lds
 Requires at least: 4.9
 Tested up to: 5.3
 Stable tag: 3.0
