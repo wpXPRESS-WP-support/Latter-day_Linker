@@ -20,24 +20,16 @@ Updated and maintainted by [WordXpress](https://wordx.press) WordPress support a
 
 = Features =
 
-* Automagically change a scripture reference such as "Moroni 10:3-5" into a link like this: "[Moroni 10:3–5](https://www.churchofjesuschrist.org/study/scriptures/moro/10/3-5#3).
+* Automagically change a scripture reference such as "Moroni 10:3-5" into a link like this: [Moroni 10:3–5](https://www.churchofjesuschrist.org/study/scriptures/moro/10/3-5#3).
 * Control whether the scripture links open in a new window or the same window.
 * Prevent the linking of any passage by preceding it with an exclamation mark, ie. !Moroni 10:3-5. The exclamation mark will not show up in the published blog post. This is mostly useful when you inadvertently trigger a scripture link where you don’t want one, as in “the Omni 2 digital camera is an improvement over the popular Omni 1.”
-* Optionally disable linking of all Bible references so as not to conflict with other Bible linking plugins.
+* Disable linking of all Bible references so as not to conflict with other Bible linking plugins.
 
 == Screenshots ==
 
 1. Latter-day Linker settings page.
 2. Unlinked references in the post editor.
 3. Automatically linked references in the published post.
-
-= Known issues =
-
-* Does not play well with many code prettification plugins like Markdown, Textile, etc.
-
-= Feedback =
-
-Are *you* using LDS Linker? Have any great ideas for new features? Let us know using our [contact form](https://wordx.press/contact/). Cheers!
 
 == Installation ==
 
@@ -46,13 +38,6 @@ From WP Admin:
 1. Go to Plugins > Add New
 2. Search "Latter-day Linker"
 3. Click the "Install Now" button, followed by the "Activate" button
-
-Manually:
-
-1. Place the `ldslinker.php` file in your plugins folder (usually
-   `wp-content/plugins`). 
-2. Activate the plugin via the “Plugins” menu.
-3. You’re done!
 
 Now set your options under Settings > Latter-day Linker.
 
