@@ -9,12 +9,11 @@ Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Automagically changes any ChurchofJesusChrist.org scripture reference into a hyperlink
-pointing to the passage at the online scriptures.
+Automatically changes any restored gospel scripture reference into a link to the online scriptures on ChurchofJesusChrist.org.
 
 == Description ==
 
-Latter-day Linker (formerly "LDS Linker") is a WordPress plugin that automagically changes any properly-formatted scripture reference into a link pointing to that assage at the ChurchOfJesusChrist.org online scripture library. It recognizes references whether the book name is written out or shortened using the [standard abbreviations](https://www.churchofjesuschrist.org/study/scriptures/quad/quad/abbreviations).
+Latter-day Linker (formerly "LDS Linker") is a WordPress plugin that automagically changes any properly-formatted scripture reference into a link pointing to that passage at the ChurchOfJesusChrist.org online scripture library. It recognizes references whether the book name is written out or shortened using the [standard abbreviations](https://www.churchofjesuschrist.org/study/scriptures/quad/quad/abbreviations).
 
 Updated and maintainted by [WordXpress](https://wordx.press) WordPress support and maintenance. Need help with your WP website? We'd love to help.
 
