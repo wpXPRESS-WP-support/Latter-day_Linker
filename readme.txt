@@ -64,7 +64,7 @@ Have you got another plugin activated that modifies the content of your posts or
 
 = My question’s not here. How can I contact the developer? =
 
-Use the (support forums)[https://wordpress.org/support/plugin/lds-linker/#new-post] on WP.org for plugin support. For general WordPress support or other questions, use the WordXpress [contact form](https://wordx.press/contact/). Cheers!
+Use the (support forums)[https://wordpress.org/support/plugin/lds-linker/#new-post) on WP.org for plugin support. For general WordPress support or other questions, use the WordXpress [contact form](https://wordx.press/contact/). Cheers!
 
 == Changelog ==
 
