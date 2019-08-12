@@ -229,8 +229,7 @@ class LDSLinker {
     # If the user put an exclamation mark on the front of the reference, pass back the passage with no link.
     if ($die) return $psg;
 
-    # Prepare the first part of the link. This is the same whether we're using
-    # passage search or direct lookup.
+    # Prepare the first part of the link. 
     $link = 'https://www.churchofjesuschrist.org/study/scriptures/';
 
     # This allows linking directly to an Article of Faith without including the
@@ -241,7 +240,7 @@ class LDSLinker {
     }
 
 
-    # If there's a volume number, remove any whitespace and tack an underscore to the end of it.
+    # If there's a volume number, remove any whitespace and tack an dash to the end of it.
     if ($vol) {
       $vol = preg_replace('/\s/', '', $vol);
       $vol .= '-';
@@ -249,7 +248,6 @@ class LDSLinker {
 
     # Trim hyphens, en-dashes, em-dashes, whitespace, dots, and ampersands from book
     # and translate all to lowercase.
-    # $bok = strtolower(preg_replace('/(?:\s|\.|-|–|—|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
     $bok = preg_replace('/\s|-|–|—/', "-", $bok);
     $bok = strtolower(preg_replace('/(?:\s|\.|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
 
