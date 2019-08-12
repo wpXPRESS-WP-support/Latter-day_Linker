@@ -4,7 +4,7 @@ Plugin Name: Latter-day Linker
 Plugin URI: https://wordx.press
 Description: Automagically changes any scripture reference into a hyperlink pointing to the passage at churchofjesuschrist.org.
 Author: WordXpress
-Version: 3.0
+Version: 3.0.1
 Author URI: https://wordx.press
 Copyright: © WordXpress
 License:     GPL2
@@ -249,7 +249,9 @@ class LDSLinker {
 
     # Trim hyphens, en-dashes, em-dashes, whitespace, dots, and ampersands from book
     # and translate all to lowercase.
-    $bok = strtolower(preg_replace('/(?:\s|\.|-|–|—|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
+    # $bok = strtolower(preg_replace('/(?:\s|\.|-|–|—|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
+    $bok = preg_replace('/\s|-|–|—/', "-", $bok);
+    $bok = strtolower(preg_replace('/(?:\s|\.|&(?:[nm]dash;|\#0*15[01];|\#0*821[12];|\#x0*201[34]|amp;|\#0*38;|\#x0*26;)?)/', '', $bok));
 
     # If the book isn't abbreviated, we need to abbreviate it before we tack
     # it onto the link string. We start by creating an array of book names
@@ -267,7 +269,8 @@ class LDSLinker {
                   'haggai' => 'hag',              'zechariah' => 'zech',           'malachi' => 'mal',
                   'ezra' => 'ezra',               'job' => 'job',                  'hosea' => 'hosea',
                   'joel' => 'joel',               'amos' => 'amos',                'jonah' => 'jonah',
-                  'micah' => 'micah',             'nahum' => 'nahum'
+                  'micah' => 'micah',             'nahum' => 'nahum',              'ruth' => 'ruth',
+                  'psalm' => 'ps',
               ),
       'nt' => array(
                   'matthew' => 'matt',            'romans' => 'rom',               'corinthians' => 'cor',
@@ -276,10 +279,10 @@ class LDSLinker {
                   'philemon' => 'philem',         'hebrews' => 'heb',              'peter' => 'pet',
                   'revelation' => 'rev',          'mark' => 'mark',                'luke' => 'luke',
                   'john' => 'jn',                 'acts' => 'acts',                'jude' => 'jude',
-                  'jn' => 'john'
+                  'jn' => 'john',                 'james' => 'james'
               ),
       'bofm' => array(
-                  'nephi' => 'ne',                'wordsofmormon' => 'w_of_m',     'wofm' => 'w_of_m',
+                  'nephi' => 'ne',                'wordsofmormon' => 'w-of-m',     'wofm' => 'w-of-m',
                   'helaman' => 'hel',             'mormon' => 'morm',              'moroni' => 'moro',
                   'jacob' => 'jacob',             'enos' => 'enos',                'jarom' => 'jarom',
                   'omni' => 'omni',               'mosiah' => 'mosiah',            'alma' => 'alma',
@@ -289,9 +292,9 @@ class LDSLinker {
                   'doctrineandcovenants' => 'dc', 'doctrinecovenants' => 'dc',     'officialdeclaration' => 'od'
               ),
       'pgp' => array(
-                  'josephsmithmatthew' => 'js_m', 'jsm' => 'js_m',                 'josephsmithhistory' => 'js_h',
-                  'jsh' => 'js_h',                'abraham' => 'abr',              'articlesoffaith' => 'a_of_f',
-                  'articleoffaith' => 'a_of_f',   'aoff' => 'a_of_f'
+                  'josephsmithmatthew' => 'js-m', 'jsm' => 'js-m',                 'josephsmithhistory' => 'js-h',
+                  'jsh' => 'js-h',                'abraham' => 'abr',              'articlesoffaith' => 'a-of-f',
+                  'articleoffaith' => 'aoff',     'aoff' => 'a_of_f',              'moses' => 'moses'
               ),
     );
 
@@ -299,7 +302,11 @@ class LDSLinker {
     $parent_abbr = "";
     foreach($abbr as $key => $value) {
       foreach ($value as $bok_name => $boks_abbr) {
-        if($boks_abbr == $bok) {
+        if($bok == $boks_abbr) {
+          $bok = $boks_abbr; 
+          $parent_abbr = $key;
+        }
+        if($bok == $bok_name){
           $bok = $boks_abbr;
           $parent_abbr = $key;
         }
