@@ -4,7 +4,7 @@ Donate link: https://wordx.press
 Tags: scriptures, jesus christ, christian, mormon, lds
 Requires at least: 4.9
 Tested up to: 5.3
-Stable tag: 3.0
+Stable tag: 3.0.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -66,6 +66,11 @@ Have you got another plugin activated that modifies the content of your posts or
 Use the (support forums)[https://wordpress.org/support/plugin/lds-linker/#new-post) on WP.org for plugin support. For general WordPress support or other questions, use the WordXpress [contact form](https://wordx.press/contact/). Cheers!
 
 == Changelog ==
+
+= What's new in 3.0.1 =
+
+* Re-update readme.txt to fix typos, tags, & other issues
+* Fix : Incorrect URL linking structure
 
 = What's new in 3.0 =
 
