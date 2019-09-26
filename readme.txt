@@ -19,7 +19,7 @@ Updated and maintainted by [WordXpress](https://wordx.press) WordPress support a
 
 = Features =
 
-* Automagically change a scripture reference such as "Moroni 10:3-5" into a link like this: [Moroni 10:3–5](https://www.churchofjesuschrist.org/study/scriptures/moro/10/3-5#3).
+* Automagically change a scripture reference such as "Moroni 10:3-5" into a link like this: [Moroni 10:3–5](https://www.churchofjesuschrist.org/study/scriptures/bofm/moro/10.3-5#3).
 * Control whether the scripture links open in a new window or the same window.
 * Prevent the linking of any passage by preceding it with an exclamation mark, ie. !Moroni 10:3-5. The exclamation mark will not show up in the published blog post. This is mostly useful when you inadvertently trigger a scripture link where you don’t want one, as in “the Omni 2 digital camera is an improvement over the popular Omni 1.”
 * Disable linking of all Bible references so as not to conflict with other Bible linking plugins.
